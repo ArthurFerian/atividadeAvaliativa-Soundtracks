@@ -132,9 +132,9 @@ const updateCarta = (req, res) => {
 
 
     const trilhasAtualizadas = trilhaSonora.map(trilha => {
-        return trilhaSonora.id === id
+        return trilha.id === id
             ? {
-                ...trilhaSonora,
+                ...trilha,
                 ...(titulo     && { titulo }),
                 ...(compositor    && { compositor }),
                 ...(genero  && { genero }),
@@ -143,7 +143,7 @@ const updateCarta = (req, res) => {
                 ...(plataforma  && { plataforma }),
                 ...(anoLancamento && { anoLancamento})
             }
-            : trilhaSonora;
+            : trilha;
     });
     
     trilhaSonora.splice(0, trilhaSonora.length, ...trilhasAtualizadas);
