@@ -8,7 +8,7 @@
     "dev": "cls && node server.js"
   },
   "keywords": [],
-  "author": "Arthur",
+  "author": "Arthur Ferian",
   "license": "MIT",
   "description": "Atividade avaliativa",
   "dependencies": {
