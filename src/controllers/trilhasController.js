@@ -108,5 +108,55 @@ const getTrilhasById = (req, res) => {
     })
 }
 
+const updateCarta = (req, res) => {
+    const id = parseInt(req.params.id);
 
-export { getAllTrilhas, getTrilhasById, createTrilha, deleteTrilha}
+    const { titulo, compositor, genero, duracao, anoLancamento, popularidade, plataforma } = req.body;
+
+
+    if (isNaN(id)) {
+        return res.status(400).json({
+            success: false,
+            message: "O id deve ser um número válido"
+        })
+    }
+    
+    if (!anoLancamento || anoLancamento > 2025) {
+        return res.status(400).json({
+            success: false,
+            message: "O campo 'anoLancamento' é obrigatório e deve ser menor que 2025!"
+        });
+    }
+
+    const trilhaExiste = trilhaSonora.find(trilha => trilhaSonora.id === id);
+
+
+    const trilhasAtualizadas = trilhaSonora.map(trilha => {
+        return trilhaSonora.id === id
+            ? {
+                ...trilhaSonora,
+                ...(titulo     && { titulo }),
+                ...(compositor    && { compositor }),
+                ...(genero  && { genero }),
+                ...(duracao      && { duracao }),
+                ...(popularidade      && { popularidade }),
+                ...(plataforma  && { plataforma }),
+                ...(anoLancamento && { anoLancamento})
+            }
+            : trilhaSonora;
+    });
+    
+    trilhaSonora.splice(0, trilhaSonora.length, ...trilhasAtualizadas);
+
+    const trilhaNova = trilhaSonora.find(trilha => trilhaSonora.id === id);
+
+    res.status(200).json({
+        success: true,
+        message: "Dados atualizados com sucesso",
+        carta: trilhaNova
+    })
+
+}
+
+
+export { getAllTrilhas, getTrilhasById, createTrilha, deleteTrilha, updateCarta}
