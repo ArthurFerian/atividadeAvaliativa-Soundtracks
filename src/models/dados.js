@@ -1,4 +1,4 @@
- const trilhasSonorasDeJogos = [
+ const trilhaSonora = [
     {
       id: 1,
       titulo: "The Legend of Zelda: Breath of the Wild",
@@ -101,4 +101,4 @@
     }
   ];
 
-  export default { trilhasSonorasDeJogos };
+  export default { trilhaSonora };
