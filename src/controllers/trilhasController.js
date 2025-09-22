@@ -86,9 +86,27 @@ const getTrilhasById = (req, res) => {
         message: "Trilha sonora cadastrada com sucesso",
         trilha: novaTrilha
     })
+
   }
 
+  const deleteTrilha = (req, res) => {
+    let id = parseInt(req.params.id);
+    const trilhaParaRemover = trilhaSonora.find(t => t.id === id);
+
+    if (!trilhaParaRemover) {
+        return res.status(404).json({
+            success: false,
+            message: 'Esta trilha sonora nao existe'
+        })
+    }
+    const trilhasFiltradas = trilhaSonora.filter(trilha => trilhaSonora.id !== id);
+    trilhaSonora.splice(0, trilhaSonora.length, ...trilhasFiltradas);
+    res.status(200).json({
+        success: true,
+        message: 'Trilha sonora deletada com sucesso',
+        trilhaRemovida: trilhaParaRemover
+    })
+}
 
 
-
-export { getAllTrilhas, getTrilhasById, createTrilha}
+export { getAllTrilhas, getTrilhasById, createTrilha, deleteTrilha}
